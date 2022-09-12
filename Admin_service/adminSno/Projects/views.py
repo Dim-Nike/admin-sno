@@ -31,3 +31,29 @@ def show_projects(req):
     }
 
     return render(req, 'Projects/projects_page.html', data)
+
+
+def show_project(req):
+    data = {
+        'title_page': 'Меню'
+    }
+
+    return render(req, 'Projects/detail_project_page.html', data)
+
+
+def show_child(req):
+    data = {
+        'title_page': 'Меню'
+    }
+
+    return render(req, 'Projects/detail_child_page.html', data)
+
+
+def show_estimate(req):
+    data = {
+        'title_page': 'Меню'
+    }
+
+    return render(req, 'Projects/estimate_page.html', data)
+
+
