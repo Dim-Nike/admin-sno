@@ -8,6 +8,7 @@ class ProjectsAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['create_id', 'stage']
     filter_horizontal = ['persons']
+    readonly_fields = ['price']
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -21,3 +22,4 @@ admin.site.register(Projects, ProjectsAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Courses)
 admin.site.register(TasksProjects)
+admin.site.register(Estimate)

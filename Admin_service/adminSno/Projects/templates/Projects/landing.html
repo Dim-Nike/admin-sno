@@ -1,10 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}{{ title_page }}{% endblock %}</title>
+     <link rel="stylesheet" href='{% static "Projects/css/main.css" %}' type="text/css"/>
 </head>
 <body>
+<h1>{{ title_page }}: здесь будет шапка</h1>
+<h2>В шапке два главных раздела: Люди, Проекты</h2>
 
+{% block content %}
+{% endblock %}
 </body>
 </html>

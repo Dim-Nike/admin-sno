@@ -17,6 +17,7 @@ class Projects(models.Model):
     DONE = '5'
     CLOSED = '6'
     INFO_NEED = '7'
+    END = '8'
 
     projects_stage = [
         (OPEN, 'Ведутся переговоры'),
@@ -24,7 +25,8 @@ class Projects(models.Model):
         (IN_PROGRESS, 'В разработке'),
         (FINISH, 'Сдача проекта'),
         (CLOSED, 'Отказ'),
-        (INFO_NEED, 'В заморозке')
+        (INFO_NEED, 'В заморозке'),
+        (END, 'Проект закрыт')
     ]
 
     name = models.TextField(verbose_name='Название проекта')
@@ -33,7 +35,7 @@ class Projects(models.Model):
     stage = models.CharField(verbose_name='Стадия', choices=projects_stage, max_length=1, default=OPEN)
     persons = models.ManyToManyField('Person', verbose_name='Состав сотрудников', blank=True)
     notes = models.TextField(verbose_name='Заметки')
-
+    price = models.IntegerField('Стоимость проекта', default=0)
 
     def __str__(self):
         return self.name
@@ -105,7 +107,6 @@ class Person(models.Model):
     visit = models.TextField(verbose_name='Посещения')
     courses = models.ForeignKey(Courses, verbose_name='Курсы', on_delete=models.RESTRICT, blank=True)
 
-
     def __str__(self):
         return f'{self.name}'
 
@@ -122,6 +123,30 @@ class TasksProjects(models.Model):
     deadline = models.DateTimeField(verbose_name='Дедлайн')
     projects = models.ForeignKey(Projects, verbose_name='Проект', on_delete=models.RESTRICT)
     person = models.ForeignKey(Person, verbose_name='Сотрудник', on_delete=models.RESTRICT)
+
+
+class Estimate(models.Model):
+    class Meta:
+        db_table = 'Estimate'
+        verbose_name = 'Смета'
+        verbose_name_plural = 'Сметы'
+
+    project = models.ForeignKey(Projects, verbose_name='Проект', on_delete=models.RESTRICT)
+    promotion = models.IntegerField(verbose_name='Копирайтер/наполнение контента/SMM специалист', default=0)
+    sale = models.IntegerField(verbose_name='Отдел продаж', default=0)
+    admin = models.IntegerField(verbose_name='Системный администратор', default=0)
+    project_manage = models.IntegerField(verbose_name='PM Менеджер', default=0)
+    backend = models.IntegerField(verbose_name='Backend', default=0)
+    frontend = models.IntegerField(verbose_name='Frontend', default=0)
+    fullstack = models.IntegerField(verbose_name='Fullstack', default=0)
+    test = models.IntegerField(verbose_name='Тестировщик', default=0)
+    layout = models.IntegerField(verbose_name='Верстальщик', default=0)
+    web_designer = models.IntegerField(verbose_name='Web дизайнер', default=0)
+    manager_1 = models.IntegerField(verbose_name='Управленец 1(Максим)', default=0)
+    manager_2 = models.IntegerField(verbose_name='Упраленец 2(Дмитрий)', default=0)
+    manager_3 = models.IntegerField(verbose_name='Управленец 3(Валерий)', default=0)
+
+
 
 
 
